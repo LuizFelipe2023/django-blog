@@ -6,7 +6,7 @@
 
 Independent journalism, in-depth features and community updates — powered by Django + Bootstrap 5.
 
-[Features](#-features) · [Stack](#-stack) · [Getting Started](#-getting-started) · [Project Structure](#-project-structure) · [Commands](#-commands) · [Design System](#-design-system)
+[Features](#-features) · [Stack](#-stack) · [Getting Started](#-getting-started) · [Project Structure](#-project-structure) · [Commands](#-commands)
 
 </div>
 
