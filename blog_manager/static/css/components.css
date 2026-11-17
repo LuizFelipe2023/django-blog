@@ -1,0 +1,489 @@
+/* ==========================================================================
+   UI COMPONENTS (components.css)
+   Buttons, Badges, Cards, Alerts, Empty States, Section Dividers
+   ========================================================================== */
+
+/* --- Editorial Buttons --- */
+.btn-editorial {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.65rem 1.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.4;
+    border-radius: var(--radius-pill);
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all var(--transition-fast);
+}
+.btn-editorial:hover {
+    background: var(--ink);
+    color: var(--paper);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+.btn-editorial:active {
+    transform: translateY(0);
+}
+
+/* Solid Accent Variant */
+.btn-editorial--solid {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(194, 65, 43, 0.22);
+}
+.btn-editorial--solid:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+    color: #ffffff;
+    box-shadow: 0 4px 14px rgba(194, 65, 43, 0.32);
+}
+
+/* Outline Variant */
+.btn-editorial--outline {
+    background: transparent;
+    border-color: var(--rule-strong);
+    color: var(--ink-soft);
+}
+.btn-editorial--outline:hover {
+    background: var(--paper-surface);
+    border-color: var(--ink);
+    color: var(--ink);
+}
+
+/* Danger Variant */
+.btn-editorial--danger {
+    background: transparent;
+    border-color: var(--danger-border);
+    color: var(--danger);
+}
+.btn-editorial--danger:hover {
+    background: var(--danger);
+    border-color: var(--danger);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(187, 50, 50, 0.25);
+}
+
+/* Ghost Variant */
+.btn-editorial--ghost {
+    background: transparent;
+    border-color: transparent;
+    color: var(--ink-soft);
+}
+.btn-editorial--ghost:hover {
+    background: var(--paper-surface);
+    color: var(--ink);
+}
+
+/* Size Modifiers */
+.btn-editorial--sm {
+    padding: 0.4rem 0.95rem;
+    font-size: 0.82rem;
+    gap: 0.35rem;
+}
+.btn-editorial--lg {
+    padding: 0.85rem 1.85rem;
+    font-size: 1rem;
+    gap: 0.65rem;
+}
+
+/* Icon alignment inside button */
+.btn-editorial i,
+.btn-editorial svg {
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* --- Kickers & Badges --- */
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-family: var(--font-sans);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: var(--radius-pill);
+    line-height: 1.2;
+}
+.kicker--accent {
+    background: var(--accent);
+    color: #ffffff;
+}
+.kicker--muted {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+.kicker--dark {
+    background: var(--ink);
+    color: var(--paper);
+}
+.kicker--outline {
+    background: transparent;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+}
+.kicker--soft {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+/* Avatar Images */
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* Status Badges */
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-pill);
+    line-height: 1.2;
+}
+.status-badge--success {
+    background: var(--success-soft);
+    color: var(--success);
+    border: 1px solid var(--success-border);
+}
+.status-badge--danger {
+    background: var(--danger-soft);
+    color: var(--danger);
+    border: 1px solid var(--danger-border);
+}
+.status-badge--warning {
+    background: var(--warning-soft);
+    color: var(--warning);
+    border: 1px solid var(--warning-border);
+}
+.status-badge--info {
+    background: var(--info-soft);
+    color: var(--info);
+    border: 1px solid var(--info-border);
+}
+.status-badge--neutral {
+    background: var(--paper-surface);
+    color: var(--ink-soft);
+    border: 1px solid var(--rule);
+}
+
+/* Status Indicator Dot */
+.status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+.status-dot--active {
+    background: var(--success);
+    box-shadow: 0 0 6px rgba(36, 115, 72, 0.45);
+}
+.status-dot--blocked {
+    background: var(--warning);
+    box-shadow: 0 0 6px rgba(181, 115, 11, 0.45);
+}
+
+/* --- Section Dividers --- */
+.section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 2.5rem 0 2rem;
+}
+.section-divider::before,
+.section-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+}
+.section-divider__label {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--ink-soft);
+    white-space: nowrap;
+}
+
+/* --- Editorial Cards --- */
+.editorial-card {
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+.editorial-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+/* --- Alerts & Django Messages Styling --- */
+.alert {
+    border-radius: var(--radius-md);
+    padding: 0.95rem 1.35rem;
+    font-size: 0.92rem;
+    border: 1px solid transparent;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: var(--shadow-xs);
+}
+.alert-success {
+    background-color: #f1f8f3;
+    border-color: #c9e4d3;
+    color: #1e5937;
+}
+.alert-danger {
+    background-color: #fcf1f1;
+    border-color: #f3cccc;
+    color: #8c2525;
+}
+.alert-warning {
+    background-color: #fdf8ee;
+    border-color: #fae6c0;
+    color: #7d4e08;
+}
+.alert-info {
+    background-color: #f0f6fa;
+    border-color: #cce2f0;
+    color: #14537c;
+}
+.alert .btn-close {
+    margin-left: auto;
+    filter: brightness(0.6);
+}
+
+/* --- Empty States --- */
+.empty-state {
+    text-align: center;
+    padding: 4.5rem 2rem;
+    background: var(--paper-card);
+    border: 1.5px dashed var(--rule);
+    border-radius: var(--radius-lg);
+    margin: 2rem 0;
+}
+.empty-state__icon-wrap {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 1.25rem;
+    background: var(--paper-surface);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.8rem;
+    border: 1px solid var(--rule);
+}
+.empty-state__title {
+    font-family: var(--font-serif);
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 0.5rem;
+}
+.empty-state__text {
+    color: var(--ink-soft);
+    margin: 0 auto 1.75rem;
+    max-width: 44ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   LARAVEL-STYLE SESSION TOAST NOTIFICATIONS
+   ========================================================================== */
+
+.toast-container-custom {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 1090;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 440px;
+    width: calc(100% - 48px);
+    pointer-events: none;
+}
+@media (max-width: 575px) {
+    .toast-container-custom {
+        top: 14px;
+        right: 14px;
+        width: calc(100% - 28px);
+    }
+}
+
+.session-toast {
+    pointer-events: auto;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    box-shadow: 0 12px 32px -4px rgba(18, 21, 28, 0.16), 0 4px 12px -2px rgba(18, 21, 28, 0.08);
+    border: 1px solid var(--rule);
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    animation: toastSlideDown 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
+}
+@keyframes toastSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-24px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.session-toast--hiding {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.94);
+}
+
+.session-toast__inner {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 16px;
+}
+
+.session-toast__icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* Color Themes based on message tag */
+.session-toast--success {
+    border-left: 4px solid var(--success);
+}
+.session-toast--success .session-toast__icon {
+    background: var(--success-soft);
+    color: var(--success);
+}
+
+.session-toast--error,
+.session-toast--danger {
+    border-left: 4px solid var(--danger);
+}
+.session-toast--error .session-toast__icon,
+.session-toast--danger .session-toast__icon {
+    background: var(--danger-soft);
+    color: var(--danger);
+}
+
+.session-toast--warning {
+    border-left: 4px solid var(--warning);
+}
+.session-toast--warning .session-toast__icon {
+    background: var(--warning-soft);
+    color: var(--warning);
+}
+
+.session-toast--info {
+    border-left: 4px solid var(--info);
+}
+.session-toast--info .session-toast__icon {
+    background: var(--info-soft);
+    color: var(--info);
+}
+
+.session-toast__content {
+    flex: 1;
+    min-width: 0;
+}
+.session-toast__title {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+    letter-spacing: -0.01em;
+}
+.session-toast__message {
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.45;
+    word-break: break-word;
+}
+
+.session-toast__close {
+    background: transparent;
+    border: none;
+    color: var(--ink-muted);
+    font-size: 1.15rem;
+    padding: 2px 6px;
+    cursor: pointer;
+    line-height: 1;
+    border-radius: var(--radius-xs);
+    transition: color var(--transition-fast), background var(--transition-fast);
+}
+.session-toast__close:hover {
+    color: var(--ink);
+    background: var(--paper-surface);
+}
+
+/* Toast Progress Bar */
+.session-toast__progress {
+    height: 3px;
+    width: 100%;
+    background: rgba(18, 21, 28, 0.06);
+    overflow: hidden;
+}
+.session-toast__progress-bar {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    animation: toastTimer 4.5s linear forwards;
+}
+.session-toast--success .session-toast__progress-bar {
+    background: var(--success);
+}
+.session-toast--error .session-toast__progress-bar,
+.session-toast--danger .session-toast__progress-bar {
+    background: var(--danger);
+}
+.session-toast--warning .session-toast__progress-bar {
+    background: var(--warning);
+}
+.session-toast--info .session-toast__progress-bar {
+    background: var(--info);
+}
+
+@keyframes toastTimer {
+    from {
+        transform: scaleX(1);
+    }
+    to {
+        transform: scaleX(0);
+    }
+}

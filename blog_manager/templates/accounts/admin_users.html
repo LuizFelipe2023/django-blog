@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}User Management — NewsBlog Administration{% endblock %}
+
+{% block content %}
+<div class="my-3">
+    
+    {# Dashboard Header #}
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+        <div>
+            <span class="kicker kicker--dark mb-2">
+                <i class="bi bi-shield-lock"></i> Administration
+            </span>
+            <h1 class="h2 fw-bold text-dark mb-0">User Directory &amp; Roles</h1>
+        </div>
+        <span class="status-badge status-badge--neutral py-2 px-3">
+            <i class="bi bi-people me-1"></i> Total Registered: <strong>{{ users.count }}</strong>
+        </span>
+    </div>
+
+    {# Responsive Table Card #}
+    <div class="admin-card">
+        <div class="table-responsive">
+            <table class="table admin-table align-middle">
+                <thead>
+                    <tr>
+                        <th class="ps-4">User</th>
+                        <th>Contact</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th>Joined</th>
+                        <th class="pe-4 text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                        <tr>
+                            {# User Info #}
+                            <td class="ps-4">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="admin-user-avatar">
+                                        {% if u.avatar %}
+                                            <img src="{{ u.avatar.url }}" alt="{{ u.full_name }}" class="avatar-img">
+                                        {% else %}
+                                            {{ u.full_name|default:u.email|slice:":1"|upper }}
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <div class="fw-bold text-dark">
+                                            {{ u.full_name|default:"—" }}
+                                            {% if u == request.user %}
+                                                <span class="badge bg-secondary-subtle text-dark border ms-1">You</span>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-muted small">{{ u.email }}</div>
+                                    </div>
+                                </div>
+                            </td>
+
+                            {# Phone Contact #}
+                            <td>
+                                {% if u.phone %}
+                                    <span class="small text-secondary">
+                                        <i class="bi bi-telephone me-1"></i>{{ u.phone }}
+                                    </span>
+                                {% else %}
+                                    <span class="text-muted small">—</span>
+                                {% endif %}
+                            </td>
+
+                            {# Role Badge #}
+                            <td>
+                                {% if u.is_superuser %}
+                                    <span class="status-badge status-badge--danger">
+                                        <i class="bi bi-shield-fill"></i> Superuser
+                                    </span>
+                                {% elif u.is_staff %}
+                                    <span class="status-badge status-badge--info">
+                                        <i class="bi bi-shield"></i> Staff / Admin
+                                    </span>
+                                {% else %}
+                                    <span class="status-badge status-badge--neutral">
+                                        Member
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            {# Status Badge #}
+                            <td>
+                                {% if u.is_active %}
+                                    <span class="status-badge status-badge--success">
+                                        <span class="status-dot status-dot--active"></span> Active
+                                    </span>
+                                {% else %}
+                                    <span class="status-badge status-badge--warning">
+                                        <span class="status-dot status-dot--blocked"></span> Blocked
+                                    </span>
+                                {% endif %}
+                            </td>
+
+                            {# Joined Date #}
+                            <td class="small text-muted">
+                                <i class="bi bi-calendar3 me-1"></i>{{ u.date_joined|date:"M d, Y" }}
+                            </td>
+
+                            {# Actions #}
+                            <td class="pe-4 text-end">
+                                {% if u != request.user and not u.is_superuser %}
+                                    <div class="admin-actions-group">
+                                        
+                                        <form method="POST" action="{% url 'admin_toggle_staff' u.id %}" class="d-inline m-0">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn-editorial btn-editorial--sm btn-editorial--outline"
+                                                    title="{% if u.is_staff %}Demote from Admin{% else %}Promote to Admin{% endif %}">
+                                                {% if u.is_staff %}
+                                                    <i class="bi bi-shield-slash"></i> Revoke
+                                                {% else %}
+                                                    <i class="bi bi-shield-check"></i> Make Admin
+                                                {% endif %}
+                                            </button>
+                                        </form>
+
+                                        <form method="POST" action="{% url 'admin_toggle_active' u.id %}" class="d-inline m-0">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn-editorial btn-editorial--sm btn-editorial--outline"
+                                                    title="{% if u.is_active %}Block user{% else %}Activate user{% endif %}">
+                                                {% if u.is_active %}
+                                                    <i class="bi bi-slash-circle"></i> Block
+                                                {% else %}
+                                                    <i class="bi bi-check-circle"></i> Activate
+                                                {% endif %}
+                                            </button>
+                                        </form>
+
+                                        <form method="POST" action="{% url 'admin_user_delete' u.id %}" class="d-inline m-0"
+                                              onsubmit="return confirm('Delete user {{ u.full_name|default:u.email }} permanently?');">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn-editorial btn-editorial--sm btn-editorial--danger"
+                                                    title="Permanently Delete">
+                                                <i class="bi bi-trash3"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <span class="text-muted small">—</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

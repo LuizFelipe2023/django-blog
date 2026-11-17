@@ -1,0 +1,227 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} — NewsBlog{% endblock %}
+
+{% block content %}
+<div class="article-layout">
+
+    {# Top Navigation & Actions Bar #}
+    <div class="article-actions">
+        <a href="{% url 'news_home' %}" class="article-actions__back">
+            <i class="bi bi-arrow-left"></i> Back to Feed
+        </a>
+
+        {% if user.is_authenticated and user == news.author %}
+            <div class="article-actions__group">
+                <a href="{% url 'news_update' news.id %}" class="btn-editorial btn-editorial--sm btn-editorial--outline">
+                    <i class="bi bi-pencil"></i> Edit Post
+                </a>
+                <a href="{% url 'news_delete' news.id %}" class="btn-editorial btn-editorial--sm btn-editorial--danger">
+                    <i class="bi bi-trash3"></i> Delete
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    {# Article Header #}
+    <header class="article-header">
+        <span class="kicker kicker--accent">
+            <i class="bi bi-newspaper"></i> Editorial Article
+        </span>
+        <h1 class="article-header__title">{{ news.title }}</h1>
+
+        <div class="article-byline">
+            <span class="article-byline__avatar">
+                {% if news.author.avatar %}
+                    <img src="{{ news.author.avatar.url }}" alt="{{ news.author.full_name }}" class="avatar-img">
+                {% else %}
+                    {{ news.author.full_name|default:"A"|slice:":1"|upper }}
+                {% endif %}
+            </span>
+            <div class="article-byline__info">
+                <span class="article-byline__name">
+                    {{ news.author.full_name|default:"Anonymous Author" }}
+                </span>
+                <span class="article-byline__meta">
+                    {% if news.created_at %}
+                        <span><i class="bi bi-calendar3"></i> {{ news.created_at|date:"F j, Y" }}</span>
+                    {% endif %}
+                    {% if news.author.email %}
+                        <span>&middot;</span>
+                        <span><i class="bi bi-envelope"></i> {{ news.author.email }}</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </header>
+
+    {# Article Media (Images Gallery / Carousel) #}
+    {% if news.images.all %}
+        <figure class="article-media">
+            {% if news.images.count > 1 %}
+                <div id="newsCarousel" class="article-carousel carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-indicators">
+                        {% for img in news.images.all %}
+                            <button type="button"
+                                    data-bs-target="#newsCarousel"
+                                    data-bs-slide-to="{{ forloop.counter0 }}"
+                                    class="{% if forloop.first %}active{% endif %}"
+                                    aria-label="Slide {{ forloop.counter }}"></button>
+                        {% endfor %}
+                    </div>
+
+                    <div class="carousel-inner">
+                        {% for img in news.images.all %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <img src="{{ img.image.url }}"
+                                     class="article-carousel__img"
+                                     alt="{{ news.title }} — photo {{ forloop.counter }}">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <button class="carousel-control-prev" type="button"
+                            data-bs-target="#newsCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button"
+                            data-bs-target="#newsCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            {% else %}
+                {% with single_img=news.images.first %}
+                    <img src="{{ single_img.image.url }}"
+                         class="article-media__img"
+                         alt="{{ news.title }}">
+                {% endwith %}
+            {% endif %}
+        </figure>
+    {% endif %}
+
+    {# Article Body Content #}
+    <article class="article-body">
+        {{ news.content|linebreaks }}
+    </article>
+
+    {# Comments Section #}
+    <section class="comments-section" id="comments">
+        <header class="comments-header">
+            <h2 class="comments-header__title">
+                <i class="bi bi-chat-left-text me-2"></i>Discussion
+            </h2>
+            <span class="comments-header__count" id="commentsCounter">{{ news.comments.count }}</span>
+        </header>
+
+        {# Comment Form (AJAX enabled) #}
+        {% if user.is_authenticated %}
+            <form method="POST" action="{% url 'news_detail' news.id %}" class="comment-form" id="newCommentForm">
+                {% csrf_token %}
+                <div class="comment-form__field">
+                    {{ comment_form.content }}
+                    <div class="comment-form__error d-none" id="commentFormError">
+                        <i class="bi bi-exclamation-circle"></i> <span></span>
+                    </div>
+                </div>
+                <div class="comment-form__actions">
+                    <button type="submit" class="btn-editorial btn-editorial--solid btn-editorial--sm" id="submitCommentBtn">
+                        <i class="bi bi-send"></i> <span id="submitCommentText">Post Comment</span>
+                    </button>
+                </div>
+            </form>
+        {% else %}
+            <div class="comment-login-prompt">
+                <i class="bi bi-lock me-1"></i>
+                <a href="{% url 'login' %}">Log in</a> to join the conversation and leave a comment.
+            </div>
+        {% endif %}
+
+        {# Comments List Container #}
+        <div class="comment-list" id="commentList">
+            {% for comment in news.comments.all %}
+                <article class="comment" id="comment-{{ comment.id }}" data-comment-id="{{ comment.id }}">
+                    <header class="comment__head">
+                        <span class="comment__avatar">
+                            {% if comment.author.avatar %}
+                                <img src="{{ comment.author.avatar.url }}" alt="{{ comment.author.full_name }}" class="avatar-img">
+                            {% else %}
+                                {{ comment.author.full_name|default:comment.author.email|slice:":1"|upper }}
+                            {% endif %}
+                        </span>
+                        <div class="comment__author">
+                            <span class="comment__name">{{ comment.author.full_name|default:comment.author.email }}</span>
+                            <span class="comment__time">
+                                <i class="bi bi-clock"></i> {{ comment.created_at|timesince }} ago
+                            </span>
+                        </div>
+
+                        <div class="comment__actions">
+                            {% if user == comment.author %}
+                                <button type="button"
+                                        class="comment__action"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#editComment{{ comment.id }}"
+                                        aria-expanded="false"
+                                        aria-controls="editComment{{ comment.id }}">
+                                    <i class="bi bi-pencil"></i> Edit
+                                </button>
+                            {% endif %}
+
+                            {% if user == comment.author or user == news.author %}
+                                <form method="POST" action="{% url 'comment_delete' comment.id %}" class="m-0 comment-delete-form" data-comment-id="{{ comment.id }}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="comment__action comment__action--danger" title="Delete comment">
+                                        <i class="bi bi-trash3"></i> Delete
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </header>
+
+                    <div class="comment__body" id="comment-body-{{ comment.id }}">{{ comment.content|linebreaksbr }}</div>
+
+                    {% if user == comment.author %}
+                        <div class="collapse comment__edit" id="editComment{{ comment.id }}">
+                            <form method="POST" action="{% url 'comment_update' comment.id %}" class="comment-edit-form" data-comment-id="{{ comment.id }}">
+                                {% csrf_token %}
+                                <textarea name="content"
+                                          class="comment__edit-textarea"
+                                          rows="3"
+                                          required>{{ comment.content }}</textarea>
+                                <div class="comment__edit-actions">
+                                    <button type="button"
+                                            class="btn-editorial btn-editorial--sm btn-editorial--ghost"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#editComment{{ comment.id }}">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" class="btn-editorial btn-editorial--solid btn-editorial--sm">
+                                        <i class="bi bi-check-lg"></i> Save Changes
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                </article>
+            {% empty %}
+                <div class="empty-state py-4 my-2 comment-empty" id="emptyCommentsPlaceholder">
+                    <div class="empty-state__icon-wrap mb-2" style="width: 50px; height: 50px; font-size: 1.3rem;">
+                        <i class="bi bi-chat-square-dots"></i>
+                    </div>
+                    <p class="empty-state__text mb-0">
+                        No comments yet. Be the first to share your perspective!
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/comments.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   FORM CONTROLS & INPUT STYLING (forms.css)
+   ========================================================================== */
+
+/* Form Wrapper Card */
+.form-card {
+    background: var(--paper-card);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+.form-card__header {
+    background: var(--paper-card);
+    border-bottom: 1px solid var(--rule);
+    padding: 1.75rem 2rem 1.5rem;
+}
+.form-card__body {
+    padding: 2rem;
+}
+@media (max-width: 575px) {
+    .form-card__header { padding: 1.25rem 1.25rem 1rem; }
+    .form-card__body { padding: 1.25rem; }
+}
+
+/* Form Labels */
+.form-label {
+    font-size: 0.86rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 0.45rem;
+    display: inline-block;
+    letter-spacing: 0.01em;
+}
+
+/* Base Form Controls */
+.form-control,
+.form-select {
+    background-color: var(--paper);
+    border: 1.5px solid var(--rule);
+    border-radius: var(--radius-sm);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    line-height: 1.5;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+.form-control::placeholder {
+    color: var(--ink-subtle);
+}
+.form-control:focus,
+.form-select:focus {
+    background-color: #ffffff;
+    border-color: var(--accent);
+    color: var(--ink);
+    outline: none;
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.form-control-lg {
+    font-size: 1.15rem;
+    padding: 0.85rem 1.15rem;
+    font-weight: 500;
+}
+
+/* Form Helper Texts */
+.form-text {
+    font-size: 0.82rem;
+    color: var(--ink-muted);
+    margin-top: 0.4rem;
+}
+
+/* Custom File Upload Styling */
+.file-upload-wrapper {
+    position: relative;
+    border: 2px dashed var(--rule-strong);
+    border-radius: var(--radius-md);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    background: var(--paper);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+.file-upload-wrapper:hover {
+    border-color: var(--accent);
+    background: var(--paper-surface);
+}
+.file-upload-wrapper i {
+    font-size: 2.2rem;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+}
+.file-upload-wrapper .file-upload-text {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.92rem;
+    margin-bottom: 0.25rem;
+}
+.file-upload-wrapper .file-upload-hint {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+}
+
+/* Attached Images Gallery (in edit mode) */
+.attached-images-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.attached-image-card {
+    border: 1px solid var(--rule);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--paper-card);
+    box-shadow: var(--shadow-xs);
+    position: relative;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.attached-image-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+.attached-image-card img {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+}
+.attached-image-card__action {
+    padding: 0.45rem;
+    background: var(--paper-surface);
+    border-top: 1px solid var(--rule);
+}
+
+/* Delete Confirmation Card */
+.delete-confirm-card {
+    background: var(--paper-card);
+    border: 1px solid var(--danger-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+.delete-confirm-card__icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--danger-soft);
+    color: var(--danger);
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+}
+.delete-confirm-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.75rem;
+}
+.delete-confirm-card__quote {
+    font-family: var(--font-serif);
+    font-style: italic;
+    color: var(--ink);
+    font-size: 1.15rem;
+    background: var(--paper-surface);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-sm);
+    margin: 1rem auto 1.75rem;
+    display: inline-block;
+    max-width: 90%;
+}

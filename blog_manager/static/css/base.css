@@ -1,0 +1,114 @@
+/* ==========================================================================
+   BASE & TYPOGRAPHY STYLES (base.css)
+   ========================================================================== */
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+::selection {
+    background: var(--accent);
+    color: #ffffff;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+}
+::-webkit-scrollbar-track {
+    background: var(--paper);
+}
+::-webkit-scrollbar-thumb {
+    background: #d4cdc1;
+    border-radius: var(--radius-pill);
+    border: 2px solid var(--paper);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #b5ac9d;
+}
+
+/* Body Styling */
+.site-body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Typography Hierarchy */
+h1, h2, h3, h4, h5, h6,
+.display-1, .display-2, .display-3, .display-4, .display-5, .display-6 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.22;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-top: 0;
+}
+
+p {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    color: var(--ink-soft);
+}
+
+/* Hyperlinks */
+a {
+    color: var(--accent);
+    text-decoration: none;
+    transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+a:hover {
+    color: var(--accent-hover);
+}
+
+/* Focus Accessibility */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-xs);
+}
+
+/* Main Content Area */
+.site-main {
+    flex: 1 0 auto;
+    padding-block: 2rem 4rem;
+}
+
+/* Subtle HR */
+hr {
+    border: 0;
+    border-top: 1px solid var(--rule);
+    opacity: 1;
+    margin: 2rem 0;
+}
+
+/* Media Elements */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* Utilities */
+.text-serif { font-family: var(--font-serif) !important; }
+.text-sans  { font-family: var(--font-sans) !important; }
+.text-ink   { color: var(--ink) !important; }
+.text-ink-soft { color: var(--ink-soft) !important; }
+.text-ink-muted { color: var(--ink-muted) !important; }
+.text-accent { color: var(--accent) !important; }

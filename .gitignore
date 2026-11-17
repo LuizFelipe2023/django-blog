@@ -1,0 +1,115 @@
+# ==========================================================================
+# GITIGNORE — Django Project
+# ==========================================================================
+
+# --------------------------------------------------------------------------
+# Python & Bytecode
+# --------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# --------------------------------------------------------------------------
+# Virtual Environments
+# --------------------------------------------------------------------------
+env/
+venv/
+ENV/
+.venv/
+env*/
+venv*/
+
+# --------------------------------------------------------------------------
+# Django Database & Logs
+# --------------------------------------------------------------------------
+*.log
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+*.sqlite3-journal
+local_settings.py
+
+# --------------------------------------------------------------------------
+# Django Static & Media Uploads
+# --------------------------------------------------------------------------
+# Coleta de arquivos estáticos em produção (collectstatic)
+staticfiles/
+**/staticfiles/
+
+# Uploads de mídia de usuários (fotos de notícias, avatares)
+media/
+**/media/*
+!**/media/.gitkeep
+
+news_images/
+**/news_images/*
+!**/news_images/.gitkeep
+
+avatars/
+**/avatars/*
+!**/avatars/.gitkeep
+
+# --------------------------------------------------------------------------
+# Environment Variables & Secrets
+# --------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+!.env.template
+
+# --------------------------------------------------------------------------
+# IDEs & Text Editors
+# --------------------------------------------------------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# --------------------------------------------------------------------------
+# Operating System Files
+# --------------------------------------------------------------------------
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# --------------------------------------------------------------------------
+# Testing & Coverage
+# --------------------------------------------------------------------------
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.tox/
+.nox/

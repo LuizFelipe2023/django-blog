@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ action }} Article — NewsBlog{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center my-3">
+    <div class="col-lg-8">
+        <div class="form-card">
+            
+            {# Card Header #}
+            <div class="form-card__header">
+                <span class="kicker kicker--soft mb-2">
+                    <i class="bi bi-feather"></i> Editorial Studio
+                </span>
+                <h1 class="h3 fw-bold text-dark mb-1">{{ action }} Article</h1>
+                <p class="text-muted small mb-0">Fill in the fields below to craft your publication.</p>
+            </div>
+
+            {# Card Body #}
+            <div class="form-card__body">
+                <form method="POST" enctype="multipart/form-data" novalidate>
+                    {% csrf_token %}
+
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill"></i>
+                            <div>{{ form.non_field_errors }}</div>
+                        </div>
+                    {% endif %}
+
+                    {# Title Field #}
+                    <div class="mb-4">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                            Article Headline <span class="text-danger">*</span>
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle"></i> {{ form.title.errors|striptags }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {# Content Field #}
+                    <div class="mb-4">
+                        <label for="{{ form.content.id_for_label }}" class="form-label">
+                            Full Article Content <span class="text-danger">*</span>
+                        </label>
+                        {{ form.content }}
+                        {% if form.content.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle"></i> {{ form.content.errors|striptags }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {# Images Upload Field #}
+                    <div class="mb-4">
+                        <label for="{{ form.images.id_for_label }}" class="form-label">
+                            Attach Media / Photos
+                        </label>
+                        <div class="p-3 bg-light rounded-3 border">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="fs-2 text-accent">
+                                    <i class="bi bi-images"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    {{ form.images }}
+                                    <div class="form-text mt-1">
+                                        Select one or more images (JPG, PNG, WEBP). They will form a carousel header.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if form.images.errors %}
+                            <div class="text-danger small mt-1">
+                                <i class="bi bi-exclamation-circle"></i> {{ form.images.errors|striptags }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {# Form Action Buttons #}
+                    <div class="d-flex justify-content-end align-items-center gap-3 pt-3 border-top mt-4">
+                        <a href="{% url 'news_home' %}" class="btn-editorial btn-editorial--outline">
+                            Cancel
+                        </a>
+                        <button type="submit" class="btn-editorial btn-editorial--solid">
+                            <i class="bi bi-check-lg"></i> Save &amp; Publish
+                        </button>
+                    </div>
+                </form>
+
+                {# Current Attached Images (Edit Mode) #}
+                {% if news and news.images.all %}
+                    <hr class="my-4">
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h6 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-images me-1 text-accent"></i> Attached Images ({{ news.images.count }})
+                        </h6>
+                        <small class="text-muted">Click Remove to detach an image from this article.</small>
+                    </div>
+
+                    <div class="attached-images-grid">
+                        {% for img in news.images.all %}
+                            <div class="attached-image-card">
+                                <img src="{{ img.image.url }}" alt="Article photo">
+                                <div class="attached-image-card__action">
+                                    <form method="POST" action="{% url 'news_image_delete' img.id %}" class="m-0"
+                                          onsubmit="return confirm('Remove this image?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn-editorial btn-editorial--danger btn-editorial--sm w-100 py-1">
+                                            <i class="bi bi-trash3"></i> Remove
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

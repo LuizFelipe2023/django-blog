@@ -1,0 +1,21 @@
+/* ==========================================================================
+   NEWSBLOG — EDITORIAL DESIGN SYSTEM (style.css)
+   Modular Architecture:
+     1. tokens.css     — Variables, Palette, Typography, Elevation, Radii
+     2. base.css       — Resets, Typography Hierarchy, Accessibility, Global
+     3. layout.css     — Top Strip, Glassmorphism Nav, Mobile Drawer, Footer
+     4. components.css — Editorial Buttons, Badges, Alerts, Empty States
+     5. news.css       — Feed Hero, Story Grid, Media Zoom, Meta Rows
+     6. article.css    — Reading Progress, Byline, Media Carousel, Comments
+     7. forms.css      — Form Controls, File Upload Zone, Delete Dialog
+     8. accounts.css   — Auth Cards, Author Profile, Admin Directory
+   ========================================================================== */
+
+@import url('tokens.css');
+@import url('base.css');
+@import url('layout.css');
+@import url('components.css');
+@import url('news.css');
+@import url('article.css');
+@import url('forms.css');
+@import url('accounts.css');
