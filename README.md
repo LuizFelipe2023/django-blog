@@ -124,56 +124,66 @@ The admin panel is at **http://127.0.0.1:8000/admin/**.
 ## 📁 Project Structure
 
 ```
-blog_django/                    ← repository root
+blog_django/                          ← repository root
 │
-├── .env                        ← local env vars (git-ignored)
-├── .env.example                ← committed template
+├── .env                              ← local env vars (git-ignored)
+├── .env.example                      ← committed template
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
 │
-├── blog_manager/               ← Django project
+├── blog_manager/                     ← Django project
 │   ├── manage.py
-│   ├── db.sqlite3              ← dev database (git-ignored)
+│   ├── db.sqlite3                    ← dev database (git-ignored)
 │   │
-│   ├── config/                 ← project settings
+│   ├── config/                       ← project settings
 │   │   ├── settings.py
 │   │   ├── urls.py
 │   │   ├── wsgi.py
 │   │   └── asgi.py
 │   │
-│   ├── news/                   ← main app
-│   │   ├── models.py           ← News, Comment, Image
+│   ├── news/                         ← main app
+│   │   ├── models.py                 ← News, Comment, NewsImage
 │   │   ├── views.py
 │   │   ├── forms.py
 │   │   ├── urls.py
 │   │   └── admin.py
 │   │
 │   ├── static/
-│   │   └── css/
-│   │       ├── main.css        ← entry point (@imports below)
-│   │       ├── _tokens.css
-│   │       ├── _base.css
-│   │       ├── _layout.css
-│   │       ├── _buttons.css
-│   │       ├── _atoms.css
-│   │       ├── _feed.css
-│   │       ├── _article.css
-│   │       └── _comments.css
+│   │   ├── css/
+│   │   │   ├── style.css             ← entry point (@imports below)
+│   │   │   ├── tokens.css
+│   │   │   ├── base.css
+│   │   │   ├── layout.css
+│   │   │   ├── components.css
+│   │   │   ├── forms.css
+│   │   │   ├── news.css
+│   │   │   ├── article.css
+│   │   │   └── accounts.css
+│   │   │
+│   │   └── js/
+│   │       ├── main.js
+│   │       ├── comments.js
+│   │       └── profile.js
 │   │
 │   ├── templates/
 │   │   ├── base.html
-│   │   ├── news_home.html
-│   │   ├── news_detail.html
-│   │   ├── news_form.html
-│   │   ├── profile.html
-│   │   └── auth/
-│   │       ├── login.html
-│   │       └── register.html
+│   │   ├── accounts/
+│   │   │   ├── login.html
+│   │   │   ├── register.html
+│   │   │   ├── profile.html
+│   │   │   └── admin_users.html
+│   │   └── news/
+│   │       ├── news_home.html
+│   │       ├── news_detail.html
+│   │       ├── news_form.html
+│   │       └── news_confirm_delete.html
 │   │
-│   └── media/                  ← uploaded images (git-ignored)
+│   └── media/                        ← uploads (git-ignored)
+│       ├── news_images/              ← NewsImage.image (multiple per post)
+│       └── avatar/                   ← CustomUser.photo (one per user)
 │
-└── env/                        ← virtualenv (git-ignored)
+└── env/                              ← virtualenv (git-ignored)
 ```
 
 ---
