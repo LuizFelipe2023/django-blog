@@ -210,37 +210,6 @@ ALLOWED_HOSTS=localhost,127.0.0.1
 
 ---
 
-## 🎨 Design System
-
-The frontend is built on a small set of design tokens defined in `static/css/_tokens.css`:
-
-| Token | Value | Purpose |
-|---|---|---|
-| `--ink` | `#14181f` | Primary text (warm near-black) |
-| `--paper` | `#faf8f4` | Page background (editorial off-white) |
-| `--rule` | `#e3ded4` | Borders and dividers |
-| `--accent` | `#c4452c` | Brand accent (terracotta) |
-| `--font-serif` | `Fraunces` | Headlines, article body |
-| `--font-sans` | `Inter` | UI, navigation, metadata |
-| `--radius` | `14px` | Card radius |
-| `--shadow-lg` | `0 20px 48px rgba(20,24,31,.12)` | Hover elevation |
-
-All components (`story-card`, `featured-story`, `article-body`, `comment`, …) consume these tokens — change a token, change the whole site.
-
-CSS is split into modular files imported by `main.css`:
-
-```css
-@import url("_tokens.css");
-@import url("_base.css");
-@import url("_layout.css");
-@import url("_buttons.css");
-@import url("_atoms.css");
-@import url("_feed.css");
-@import url("_article.css");
-@import url("_comments.css");
-```
-
----
 
 ## 🧑‍💻 Commands
 
